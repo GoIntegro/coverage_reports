@@ -49,7 +49,7 @@ $app->get('/', function () use ($app) {
     $reports = array();
     if ($handle = opendir(REPORTS_DIR)) {
         while (false !== ($entry = readdir($handle))) {
-            if(!in_array($entry, array('.', '..'))) {
+            if(!in_array($entry, array('.', '..', '.gitkeep'))) {
                 $filename = REPORTS_DIR."/".$entry."/report/index.html";
                 $reports[] = array(
                     'name' => ucfirst($entry),
@@ -90,8 +90,6 @@ $app->post('/upload/{project}', function(Request $request, $project) use($app) {
         $phar->extractTo($path); 
         unlink($filename);
         $response = "file uploaded successfully: " . $file->getClientOriginalName();
-        // $response .= '<br>size: ' . filesize($path . '/' . $file->getClientOriginalName()) / 1024 . ' kb';
-        
         return new Response($response); 
 
     } else {
