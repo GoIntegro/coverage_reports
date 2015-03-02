@@ -3,5 +3,5 @@
 ## Report upload
 
 ```
-curl -X POST -F file=@/path/to/report.tar.gz http://ge.local:8080/upload/{projectName}
+curl -X POST -F file=@/path/to/report.tar.gz http://{host}/upload/{projectName}
 ```
