@@ -51,10 +51,13 @@ $app->get('/', function () use ($app) {
         while (false !== ($entry = readdir($handle))) {
             if(!in_array($entry, array('.', '..', '.gitkeep'))) {
                 $filename = REPORTS_DIR."/".$entry."/report/index.html";
+                $datetime = new DateTime();
+                $datetime->setTimestamp(filemtime($filename));
+                $datetime->setTimezone(new DateTimeZone('America/Argentina/Buenos_Aires'));
                 $reports[] = array(
                     'name' => ucfirst($entry),
                     'url'  => "/report/".$entry."/index.html",
-                    'last_update' => date('d-m-Y H:i:s', filemtime($filename))
+                    'last_update' => $datetime->format('d-m-Y H:i:s')
                 );
             }
         }
