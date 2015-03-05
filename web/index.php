@@ -88,7 +88,7 @@ $app->post('/upload/{project}', function(Request $request, $project) use($app) {
         $path = REPORTS_DIR . '/' . strtolower($project);
         $file->move($path, $file->getClientOriginalName());
         $filename = $path."/".$file->getClientOriginalName();
-
+        exec('rm -rf '.$path."/report");
         $phar = new PharData($filename);
         $phar->extractTo($path); 
         unlink($filename);
