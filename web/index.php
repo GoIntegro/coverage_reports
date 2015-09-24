@@ -69,7 +69,8 @@ $app->get('/', function () use ($app) {
 
 $app->get('/report/{project}/{file}', function ($project, $file) use ($app) {
     return file_get_contents(REPORTS_DIR . '/' . $project . '/report/' . $file);
-});
+})->assert('file', '.*[^css|js]');
+
 $app->get('/report/{project}/css/{file}', function ($project, $file) use ($app) {
     $response = new Response(file_get_contents(REPORTS_DIR . '/' . $project . '/report/css/' . $file));
     $response->headers->set('Content-Type', 'text/css');
